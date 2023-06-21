@@ -1,11 +1,11 @@
 import { Container, Card, Text, Col, Row, Input, Spacer, Button, Link } from "@nextui-org/react";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { useNavigate } from "react-router-dom";
 
 
 
-const Login: any = () => {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const cookies = new Cookies();
@@ -24,7 +24,7 @@ const Login: any = () => {
         });
         result = await result.json();
 
-        const { token }: any = JSON.parse(JSON.stringify(result) as any);
+        const { token } = JSON.parse(JSON.stringify(result));
 
         if (token) {
             cookies.set('NOTEAPI_USER', token, { path: '/', maxAge: 60 * 60 * 24 * 30 });

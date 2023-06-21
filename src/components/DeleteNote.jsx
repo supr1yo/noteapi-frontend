@@ -1,7 +1,7 @@
 import { Button } from '@nextui-org/react'
 import Cookies from 'universal-cookie';
 
-const DeleteNoteButton: any = ({ id } : { id: string}) => {
+const DeleteNoteButton = ({ id }) => {
     const cookies = new Cookies();
     const token = cookies.get('NOTEAPI_USER');
   

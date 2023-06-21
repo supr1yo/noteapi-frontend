@@ -3,24 +3,23 @@ import Cookies from 'universal-cookie';
 import { Modal, Input, Textarea, Button, Text } from "@nextui-org/react";
 
 
-const CreateNewNote = () => {
+const UpdateNewNote = ({ id, oldTitle, oldDescription }) => {
   const [visible, setVisible] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDesc] =  useState('');
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
 
   const cookies = new Cookies();
   const token = cookies.get("NOTEAPI_USER");
   
 
-  const addNote = async () => {
+  const updateNote = async () => {
     let data = { title, description };
-        let result = await fetch('https://noteapi-three.vercel.app/note', {
-            method: 'POST',
+        let result = await fetch(`https://noteapi-three.vercel.app/note/${id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -36,8 +35,8 @@ const CreateNewNote = () => {
 
   return (
     <div>
-      <Button auto color="success" onPress={handler} rounded>
-        New Note
+      <Button size="sm" color="primary" light onPress={handler} rounded>
+        Edit
       </Button>
       <Modal
         closeButton
@@ -59,10 +58,12 @@ const CreateNewNote = () => {
             color="primary"
             size="lg"
             placeholder="Title"
+            initialValue={oldTitle}
             onChange={(e) => setTitle(e.target.value)}
           />
           <Textarea 
           placeholder="Description"
+          initialValue={oldDescription}
           rows={12} 
           onChange={(e) => setDesc(e.target.value)} 
           />
@@ -71,8 +72,8 @@ const CreateNewNote = () => {
           <Button auto color="error" onPress={closeHandler}>
             Close
           </Button>
-          <Button auto onPress={addNote}>
-            Create
+          <Button auto onPress={updateNote}>
+            Update
           </Button>
         </Modal.Footer>
       </Modal>
@@ -80,4 +81,4 @@ const CreateNewNote = () => {
   );
 }
 
-export default CreateNewNote;
+export default UpdateNewNote;

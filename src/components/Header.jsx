@@ -7,7 +7,7 @@ import {
 import LogoutButton from "./LogOut";
 import CreateNewNote from "./NewNote";
 
-const Header = ({ avatarURL, username, createdAt }: { avatarURL: string, username: string, createdAt: Date }) => {
+const Header = ({ avatarURL, username, createdAt }) => {
     
 
     return (

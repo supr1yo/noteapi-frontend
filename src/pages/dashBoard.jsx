@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import jwt_decode from "jwt-decode";
@@ -15,7 +15,7 @@ const Dashboard = () => {
     const [user, setUser] = useState<any>(0);
     const token = cookies.get("NOTEAPI_USER");
 
-    const { id }: any = token ? jwt_decode(token) : {}; // Decoding token
+    const { id } = token ? jwt_decode(token) : {}; // Decoding token
     
 
     const notes = async () => {
@@ -88,7 +88,7 @@ const Dashboard = () => {
             <div>
                 <Header avatarURL="" username={user.username} createdAt={user.createdAt}/>
                 <Grid.Container gap={2} justify="center" >
-                    {note.map((item: any) => (
+                    {note.map((item) => (
 
 
                         <Grid key={item._id} sm={12} md={2} >

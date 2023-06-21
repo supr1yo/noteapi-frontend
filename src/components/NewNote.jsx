@@ -1,25 +1,26 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Cookies from 'universal-cookie';
 import { Modal, Input, Textarea, Button, Text } from "@nextui-org/react";
 
 
-const UpdateNewNote = ({ id, oldTitle, oldDescription } : { id: any, oldTitle: any, oldDescription: any }) => {
+const CreateNewNote = () => {
   const [visible, setVisible] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDesc] =  useState('');
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
+    console.log("closed");
   };
 
   const cookies = new Cookies();
   const token = cookies.get("NOTEAPI_USER");
   
 
-  const updateNote = async () => {
+  const addNote = async () => {
     let data = { title, description };
-        let result = await fetch(`https://noteapi-three.vercel.app/note/${id}`, {
-            method: 'PUT',
+        let result = await fetch('https://noteapi-three.vercel.app/note', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -35,8 +36,8 @@ const UpdateNewNote = ({ id, oldTitle, oldDescription } : { id: any, oldTitle: a
 
   return (
     <div>
-      <Button size="sm" color="primary" light onPress={handler} rounded>
-        Edit
+      <Button auto color="success" onPress={handler} rounded>
+        New Note
       </Button>
       <Modal
         closeButton
@@ -58,12 +59,10 @@ const UpdateNewNote = ({ id, oldTitle, oldDescription } : { id: any, oldTitle: a
             color="primary"
             size="lg"
             placeholder="Title"
-            initialValue={oldTitle}
             onChange={(e) => setTitle(e.target.value)}
           />
           <Textarea 
           placeholder="Description"
-          initialValue={oldDescription}
           rows={12} 
           onChange={(e) => setDesc(e.target.value)} 
           />
@@ -72,8 +71,8 @@ const UpdateNewNote = ({ id, oldTitle, oldDescription } : { id: any, oldTitle: a
           <Button auto color="error" onPress={closeHandler}>
             Close
           </Button>
-          <Button auto onPress={updateNote}>
-            Update
+          <Button auto onPress={addNote}>
+            Create
           </Button>
         </Modal.Footer>
       </Modal>
@@ -81,4 +80,4 @@ const UpdateNewNote = ({ id, oldTitle, oldDescription } : { id: any, oldTitle: a
   );
 }
 
-export default UpdateNewNote;
+export default CreateNewNote;
