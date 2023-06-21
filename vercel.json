@@ -1,0 +1,18 @@
+{
+    "redirects": [
+      { "source": "/discord", "destination": "https://discord.gg/8Hc3axAEdW" },
+      { "source": "/view-source", "destination": "https://github.com/supr1yo/noteapi-frontend" },
+      {
+        "source": "/:path((?!uk/).*)",
+        "has": [
+          {
+            "type": "header",
+            "key": "x-vercel-ip-country",
+            "value": "GB"
+          }
+        ],
+        "destination": "/uk/:path*",
+        "permanent": false
+      }
+    ]
+  }
